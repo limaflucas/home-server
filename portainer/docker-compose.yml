@@ -1,0 +1,45 @@
+services:
+  nginx-proxy:
+    container_name: nginx-proxy
+    image: nginxproxy/nginx-proxy
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - "/var/run/docker.sock:/tmp/docker.sock:ro"
+    networks:
+      internet-facing:
+        ipv4_address: "192.168.15.97"
+
+  portainer:
+    container_name: portainer
+    image: portainer/portainer-ce:lts
+    command: -H unix:///var/run/docker.sock
+    restart: always
+    environment:
+      - VIRTUAL_HOST=portainer.CERBERUSNET.localdomain
+      - VIRTUAL_PORT=9000
+    ports:
+      - 8000:8000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+    networks:
+      internet-facing:
+        ipv4_address: "192.168.15.98"
+
+volumes:
+  portainer_data:
+
+networks:
+  internet-facing:
+    name: internet-facing
+    driver: ipvlan
+    ipam:
+      driver: default
+      config:
+        - subnet: "192.168.15.0/24"
+          gateway: "192.168.15.1"
+    driver_opts:
+      ipvlan_mode: "l2"
+      parent: "wlx6083e75bfad7"
