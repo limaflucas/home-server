@@ -1,0 +1,34 @@
+networks:
+  public:
+    name: public
+    driver: ipvlan
+    ipam:
+      driver: default
+      config:
+        - subnet: "192.168.15.0/24"
+          gateway: "192.168.15.1"
+    driver_opts:
+      ipvlan_mode: "l2"
+      parent: "wlx6083e75bfad7"
+
+  private-portainer:
+    name: private-portainer
+    driver: ipvlan
+    ipam:
+      driver: default
+      config:
+        - subnet: "10.1.1.0/24"
+          gateway: "10.1.1.1"
+    driver_opts:
+      ipvlan_mode: "l2"
+
+  private-media:
+    name: private-media
+    driver: ipvlan
+    ipam:
+      driver: default
+      config:
+        - subnet: "10.2.1.0/24"
+          gateway: "10.2.1.1"
+    driver_opts:
+      ipvlan_mode: "l2"
