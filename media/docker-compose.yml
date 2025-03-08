@@ -1,0 +1,3 @@
+include:
+  - ./qbittorrent-compose.yml
+  - ./sonarr-compose.yml
