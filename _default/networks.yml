@@ -1,34 +1,37 @@
 networks:
-  public:
-    name: public
+  internet:
+    name: internet
     driver: ipvlan
     ipam:
       driver: default
       config:
-        - subnet: "192.168.15.0/24"
-          gateway: "192.168.15.1"
+        - subnet: "192.168.0.0/16"
+          gateway: "192.168.1.1"
+          ip_range: "192.168.100.0/24"
     driver_opts:
       ipvlan_mode: "l2"
-      parent: "wlx6083e75bfad7"
+      parent: "enp2s0"
 
-  private-portainer:
-    name: private-portainer
+  private-infra:
+    name: private-infra
     driver: ipvlan
     ipam:
       driver: default
       config:
         - subnet: "10.1.1.0/24"
           gateway: "10.1.1.1"
+          ip_range: "10.1.1.0/24"
     driver_opts:
       ipvlan_mode: "l2"
 
   private-media:
-    name: private-media
+    name: private-portainer
     driver: ipvlan
     ipam:
       driver: default
       config:
-        - subnet: "10.2.1.0/24"
-          gateway: "10.2.1.1"
+        - subnet: "10.1.2.0/24"
+          gateway: "10.1.2.1"
+          ip_range: "10.1.2.0/24"
     driver_opts:
       ipvlan_mode: "l2"
