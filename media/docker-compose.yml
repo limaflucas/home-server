@@ -1,3 +1,7 @@
 include:
-  - ./qbittorrent-compose.yml
-  - ./sonarr-compose.yml
+  - ./qbittorrent.yml
+  - ./sonarr.yml
+  - ./radarr.yml
+  - ./prowlarr.yml
+  - ./nzbget.yml
+  - ./jellyfin.yml

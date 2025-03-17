@@ -1,0 +1,26 @@
+include:
+  - ../_default/networks.yml
+
+services:
+  radarr:
+    image: lscr.io/linuxserver/radarr:latest
+    container_name: radarr
+    environment:
+      - PUID=104
+      - PGID=105
+      - TZ=America/Sao_Paulo
+    volumes:
+      - radarr-data:/config
+      - type: bind
+        source: /var/lib/media_server
+        target: /mnt/media
+        bind:
+          selinux: z
+    ports:
+      - 7878:7878
+    restart: unless-stopped
+    networks:
+      - internet
+
+volumes:
+  radarr-data:

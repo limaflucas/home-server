@@ -1,0 +1,43 @@
+include:
+  - ../_default/networks.yml
+
+services:
+  jellyfin:
+    image: jellyfin/jellyfin
+    container_name: jellyfin
+    user: 104:105
+    volumes:
+      - jellyfin-config:/config
+      - jellyfin-cache:/cache
+      - type: bind
+        source: /var/lib/media_server/contents/movies
+        target: /mnt/media/movies
+        bind:
+          selinux: z
+      - type: bind
+        source: /var/lib/media_server/contents/animes
+        target: /mnt/media/animes
+        bind:
+          selinux: z
+      - type: bind
+        source: /var/lib/media_server/contents/series
+        target: /mnt/media/series
+        bind:
+          selinux: z
+      - type: bind
+        source: /var/lib/media_server/contents/fonts
+        target: /usr/local/share/fonts/custom
+        read_only: true
+    restart: 'unless-stopped'
+    ports:
+      - 8096:8096
+      - 7359:7359/udp
+      - 1900:1900/udp
+    environment:
+      - JELLYFIN_PublishedServerUrl=http://cinema.darknerd.net
+    networks:
+      - internet
+
+volumes:
+  jellyfin-config:
+  jellyfin-cache:

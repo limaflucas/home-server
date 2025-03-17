@@ -1,0 +1,26 @@
+include:
+  - ../_default/networks.yml
+
+services:
+  sonarr:
+    image: lscr.io/linuxserver/sonarr:latest
+    container_name: sonarr
+    environment:
+      - PUID=104
+      - PGID=105
+      - TZ=America/Sao_Paulo
+    volumes:
+      - sonarr-data:/config
+      - type: bind
+        source: /var/lib/media_server/
+        target: /mnt/media
+        bind:
+          selinux: z
+    ports:
+      - 8989:8989
+    restart: unless-stopped
+    networks:
+      - internet
+
+volumes:
+  sonarr-data:

@@ -1,0 +1,26 @@
+include:
+  - ../_default/networks.yml
+
+services:
+  nzbget:
+    image: lscr.io/linuxserver/nzbget:latest
+    container_name: nzbget
+    environment:
+      - PUID=104
+      - PGID=105
+      - TZ=America/Sao_Paulo
+    volumes:
+      - nzbget-data:/config
+      - type: bind
+        source: /var/lib/media_server/downloads/usenet
+        target: /mnt/media/downloads/usenet
+        bind:
+          selinux: z
+    ports:
+      - 6789:6789
+    restart: unless-stopped
+    networks:
+      - internet
+
+volumes:
+  nzbget-data:
