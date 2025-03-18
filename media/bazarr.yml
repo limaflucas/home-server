@@ -1,0 +1,36 @@
+include:
+  - ../_default/networks.yml
+
+services:
+  bazarr:
+    image: lscr.io/linuxserver/bazarr:latest
+    container_name: bazarr
+    environment:
+      - PUID=104
+      - PGID=105
+      - TZ=America/Sao_Paulo
+    volumes:
+      - bazarr-config:/config
+      - type: bind
+        source: /var/lib/media_server/contents/movies
+        target: /movies
+        bind:
+          selinux: z
+      - type: bind
+        source: /var/lib/media_server/contents/animes
+        target: /tv/animes
+        bind:
+          selinux: z
+      - type: bind
+        source: /var/lib/media_server/contents/series
+        target: /tv/series
+        bind:
+          selinux: z
+    ports:
+      - 6767:6767
+    restart: unless-stopped
+    networks:
+      - internet
+
+volumes:
+  bazarr-config:

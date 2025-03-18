@@ -59,6 +59,7 @@ services:
       - portainer-data:/data
     networks:
       - private-infra
+
     depends_on:
       - nginx-pm
 

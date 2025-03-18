@@ -5,3 +5,6 @@ include:
   - ./prowlarr.yml
   - ./nzbget.yml
   - ./jellyfin.yml
+  - ./overseerr.yml
+  - ./plex.yml
+  - ./bazarr.yml

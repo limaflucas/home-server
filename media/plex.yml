@@ -1,0 +1,48 @@
+include:
+  - ../_default/networks.yml
+
+services:
+  plex:
+    container_name: plex
+    image: plexinc/pms-docker
+    restart: unless-stopped
+    ports:
+      - 32400:32400/tcp
+      - 8324:8324/tcp
+      - 32469:32469/tcp
+      - 1900:1900/udp
+      - 32410:32410/udp
+      - 32412:32412/udp
+      - 32413:32413/udp
+      - 32414:32414/udp
+    environment:
+      - TZ=America/Sao_Paulo
+      - PLEX_CLAIM=${PLEX_CLAIM}
+    hostname: plex
+    volumes:
+      - plex-database:/config
+      - plex-transcode-temp:/transcode
+      - type: bind
+        source: /var/lib/media_server/contents/movies
+        target: /mnt/media/movies
+        read_only: true
+        bind:
+          selinux: z
+      - type: bind
+        source: /var/lib/media_server/contents/animes
+        target: /mnt/media/animes
+        read_only: true
+        bind:
+          selinux: z
+      - type: bind
+        source: /var/lib/media_server/contents/series
+        target: /mnt/media/series
+        read_only: true
+        bind:
+          selinux: z
+    networks:
+      - internet
+
+volumes:
+  plex-database:
+  plex-transcode-temp:
