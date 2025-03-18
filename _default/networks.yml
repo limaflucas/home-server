@@ -24,14 +24,3 @@ networks:
     driver_opts:
       ipvlan_mode: "l2"
 
-  private-media:
-    name: private-portainer
-    driver: ipvlan
-    ipam:
-      driver: default
-      config:
-        - subnet: "10.1.2.0/24"
-          gateway: "10.1.2.1"
-          ip_range: "10.1.2.0/24"
-    driver_opts:
-      ipvlan_mode: "l2"
