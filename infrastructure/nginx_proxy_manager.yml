@@ -1,0 +1,61 @@
+include:
+  - ../_default/networks.yml
+
+services:
+  nginx-pm:
+    container_name: nginx-proxy-manager
+    image: 'jc21/nginx-proxy-manager:latest'
+    restart: unless-stopped
+    ports:
+      - 80:80
+      - 443:443
+      - 81:81
+    environment:
+      DB_POSTGRES_HOST: nginx-proxy-manager-db
+      DB_POSTGRES_PORT: 5432
+      DB_POSTGRES_USER: /run/secrets/pgsql-user
+      DB_POSTGRES_PASSWORD: /run/secrets/pgsql-pwd
+      DB_POSTGRES_NAME: /run/secrets/pgsql-db
+      DISABLE_IPV6: 'true'
+    volumes:
+      - nginx-data:/data
+      - nginx-letsencrypt:/etc/letsencrypt
+    networks:
+      private-infra:
+      internet:
+    secrets:
+      - pgsql-db
+      - pgsql-user
+      - pgsql-pwd
+    depends_on:
+      - nginx-pgsql
+      - pihole
+
+  nginx-pgsql:
+    container_name: nginx-proxy-manager-db
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: /run/secrets/pgsql-user
+      POSTGRES_PASSWORD: /run/secrets/pgsql-pwd
+      POSTGRES_DB: /run/secrets/pgsql-db
+    volumes:
+      - postgresql-data:/var/lib/postgresql/data
+    networks:
+      - private-infra
+    secrets:
+      - pgsql-db
+      - pgsql-user
+      - pgsql-pwd
+
+volumes:
+  postgresql-data:
+  nginx-data:
+  nginx-letsencrypt:
+
+secrets:
+  pgsql-db:
+    file: ./secrets/nginx_pgsql_db.txt
+  pgsql-user:
+    file: ./secrets/nginx_pgsql_user.txt
+  pgsql-pwd:
+    file: ./secrets/nginx_pgsql_pwd.txt
