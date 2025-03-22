@@ -12,7 +12,7 @@ services:
     volumes:
       - radarr-data:/config
       - type: bind
-        source: /var/lib/media_server
+        source: /var/lib/mediacontent
         target: /mnt/media
         bind:
           selinux: z
