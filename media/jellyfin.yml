@@ -10,22 +10,22 @@ services:
       - jellyfin-config:/config
       - jellyfin-cache:/cache
       - type: bind
-        source: /var/lib/media_server/contents/movies
+        source: /var/lib/mediacontent/contents/movies
         target: /mnt/media/movies
         bind:
           selinux: z
       - type: bind
-        source: /var/lib/media_server/contents/animes
+        source: /var/lib/mediacontent/contents/animes
         target: /mnt/media/animes
         bind:
           selinux: z
       - type: bind
-        source: /var/lib/media_server/contents/series
+        source: /var/lib/mediacontent/contents/series
         target: /mnt/media/series
         bind:
           selinux: z
       - type: bind
-        source: /var/lib/media_server/contents/fonts
+        source: /var/lib/mediacontent/contents/fonts
         target: /usr/local/share/fonts/custom
         read_only: true
     restart: 'unless-stopped'
