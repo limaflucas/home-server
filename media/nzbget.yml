@@ -12,7 +12,7 @@ services:
     volumes:
       - nzbget-data:/config
       - type: bind
-        source: /var/lib/media_server/downloads/usenet
+        source: /var/lib/mediacontent/downloads/usenet
         target: /mnt/media/downloads/usenet
         bind:
           selinux: z
