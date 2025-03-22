@@ -4,7 +4,7 @@ include:
   - ./radarr.yml
   - ./prowlarr.yml
   - ./nzbget.yml
-  - ./jellyfin.yml
+  #- ./jellyfin.yml
   - ./overseerr.yml
   - ./plex.yml
   - ./bazarr.yml
