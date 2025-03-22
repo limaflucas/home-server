@@ -14,7 +14,7 @@ services:
     volumes:
       - qbittorrent-appdata:/config
       - type: bind
-        source: /var/lib/media_server/downloads/torrents
+        source: /var/lib/mediacontent/downloads/torrents
         target: /mnt/media/downloads/torrents
         bind:
           selinux: z
