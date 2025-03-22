@@ -12,24 +12,23 @@ services:
       - 443:443/tcp
     environment:
       TZ: America/Sao_Paulo
+      FTLCONF_webserver_api_password: null
+      WEBPASSWORD: null
       WEBPASSWORD_FILE: /run/secrets/pihole-pwd
       PIHOLE_UID: 106
       PIHOLE_GID: 107
+    cap_add:
+      - SYS_NICE
     volumes:
       - type: bind
         source: /var/lib/pihole
         target: /etc/pihole
         bind:
           selinux: z
-    cap_add:
-      - SYS_NICE
     restart: unless-stopped
     secrets:
       - pihole-pwd
-    networks:
-      private-infra:
-      internet:
-        ipv4_address: '192.168.100.0'
+    network_mode: host
 
 secrets:
   pihole-pwd:
