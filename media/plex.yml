@@ -23,21 +23,18 @@ services:
       - plex-database:/config
       - plex-transcode-temp:/transcode
       - type: bind
-        source: /var/lib/media_server/contents/movies
+        source: /var/lib/mediacontent/contents/movies
         target: /mnt/media/movies
-        read_only: true
         bind:
           selinux: z
       - type: bind
-        source: /var/lib/media_server/contents/animes
+        source: /var/lib/mediacontent/contents/animes
         target: /mnt/media/animes
-        read_only: true
         bind:
           selinux: z
       - type: bind
-        source: /var/lib/media_server/contents/series
+        source: /var/lib/mediacontent/contents/series
         target: /mnt/media/series
-        read_only: true
         bind:
           selinux: z
     networks:
