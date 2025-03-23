@@ -1,0 +1,27 @@
+include:
+  - ../_default/networks.yml
+
+services:
+  kavita:
+    image: lscr.io/linuxserver/kavita:latest
+    container_name: kavita
+    environment:
+      - PUID=104
+      - PGID=105
+      - TZ=America/Sao_Paulo
+      - DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=true
+    volumes:
+      - kavita-config:/config
+      - type: bind
+        source: /var/lib/mediacontent/contents/books
+        target: /mnt/media/books
+        bind:
+          selinux: z
+    ports:
+      - 5000:5000
+    restart: unless-stopped
+    networks:
+      - internet
+
+volumes:
+  kavita-config:

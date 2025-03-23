@@ -1,0 +1,26 @@
+include:
+  - ../_default/networks.yml
+
+services:
+  readarr:
+    image: lscr.io/linuxserver/readarr:develop
+    container_name: readarr
+    environment:
+      - PUID=104
+      - PGID=105
+      - TZ=America/Sao_Paulo
+    volumes:
+      - readarr-data:/config
+      - type: bind
+        source: /var/lib/mediacontent
+        target: /mnt/media
+        bind:
+          selinux: z
+    ports:
+      - 8787:8787
+    restart: unless-stopped
+    networks:
+      - internet
+
+volumes:
+  readarr-data:

@@ -8,3 +8,5 @@ include:
   - ./overseerr.yml
   - ./plex.yml
   - ./bazarr.yml
+  - ./readarr.yml
+  - ./kavita.yml
