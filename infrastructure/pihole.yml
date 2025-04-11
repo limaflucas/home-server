@@ -21,7 +21,7 @@ services:
       - SYS_NICE
     volumes:
       - type: bind
-        source: /var/lib/pihole
+        source: /mnt/ssd/pihole
         target: /etc/pihole
         bind:
           selinux: z
